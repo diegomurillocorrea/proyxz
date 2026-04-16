@@ -66,7 +66,7 @@ export function AppSidebar() {
   }
 
   return (
-    <aside className="hidden w-64 shrink-0 flex-col border-r border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 md:flex">
+    <aside className="hidden w-64 shrink-0 flex-col border-r border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 lg:flex">
       <div className="border-b border-zinc-200 p-4 dark:border-zinc-800">
         <DaiegoLogo href="/dashboard" variant="compact" />
         <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
