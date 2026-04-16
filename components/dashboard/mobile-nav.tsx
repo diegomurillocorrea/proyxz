@@ -11,6 +11,7 @@ const nav = [
   { href: "/dashboard/clientes", label: "Clientes" },
   { href: "/dashboard/cotizaciones", label: "Cotizaciones" },
   { href: "/dashboard/catalogos", label: "Catálogos" },
+  { href: "/dashboard/especialidades", label: "Especialidades" },
   { href: "/dashboard/colaboradores", label: "Colaboradores" },
   { href: "/dashboard/entregables", label: "Entregables" },
   { href: "/dashboard/configuracion", label: "Configuración" },

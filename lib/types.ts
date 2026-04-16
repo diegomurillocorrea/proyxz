@@ -25,6 +25,24 @@ export interface TipoProyecto {
   activo: boolean;
 }
 
+export interface Especialidad {
+  id: Id;
+  codigo: string;
+  nombre: string;
+  descripcion?: string;
+  activo: boolean;
+}
+
+export interface TrabajoEspecialidad {
+  id: Id;
+  especialidadId: Id;
+  /** Slug interno en BD; la UI muestra índice 1..n en columna N.º */
+  codigo?: string;
+  nombre: string;
+  descripcion?: string;
+  activo: boolean;
+}
+
 export interface PrecioManoObra {
   id: Id;
   tipoProyectoId: Id;
@@ -46,18 +64,9 @@ export interface Cliente {
 export interface Colaborador {
   id: Id;
   nombre: string;
-  rol?: string;
   telefono?: string;
   email?: string;
   notas?: string;
-}
-
-/** Maestro global por organización — roles sugeridos en agenda (spec §8.1). */
-export interface RolColaborador {
-  id: Id;
-  nombre: string;
-  orden: number;
-  activo: boolean;
 }
 
 export interface PartidaCotizacion {

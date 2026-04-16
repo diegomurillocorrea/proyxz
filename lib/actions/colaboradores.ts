@@ -36,7 +36,6 @@ function toSafeErrorMessage(err: unknown) {
 
 export async function createColaboradorAction(input: {
   nombre: string;
-  rol?: string;
   telefono?: string;
   email?: string;
   notas?: string;
@@ -46,7 +45,6 @@ export async function createColaboradorAction(input: {
     const { error } = await supabase.from("colaboradores").insert({
       organization_id: orgId,
       nombre: input.nombre.trim(),
-      rol: input.rol?.trim() || null,
       telefono: input.telefono?.trim() || null,
       email: input.email?.trim() || null,
       notas: input.notas?.trim() || null,
@@ -62,7 +60,6 @@ export async function updateColaboradorAction(
   id: Id,
   patch: {
     nombre?: string;
-    rol?: string;
     telefono?: string;
     email?: string;
     notas?: string;
@@ -72,7 +69,6 @@ export async function updateColaboradorAction(
     const { supabase } = await requireOrgContext();
     const row: Record<string, string | null> = {};
     if (patch.nombre !== undefined) row.nombre = patch.nombre.trim();
-    if (patch.rol !== undefined) row.rol = patch.rol.trim() || null;
     if (patch.telefono !== undefined) row.telefono = patch.telefono.trim() || null;
     if (patch.email !== undefined) row.email = patch.email.trim() || null;
     if (patch.notas !== undefined) row.notas = patch.notas.trim() || null;

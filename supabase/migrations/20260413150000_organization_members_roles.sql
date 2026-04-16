@@ -2,6 +2,8 @@
 -- Incluye RPC para listar miembros con email (join a auth.users).
 
 drop policy if exists members_select on public.organization_members;
+drop policy if exists members_select_org on public.organization_members;
+drop policy if exists members_update_admin on public.organization_members;
 
 create policy members_select_org on public.organization_members
   for select

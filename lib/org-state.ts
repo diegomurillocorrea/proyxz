@@ -3,12 +3,13 @@ import type {
   Colaborador,
   Cotizacion,
   Entregable,
+  Especialidad,
   EstadoProyecto,
   OrgSettings,
   PrecioManoObra,
   Proyecto,
-  RolColaborador,
   TipoProyecto,
+  TrabajoEspecialidad,
 } from "./types";
 
 /** Estado de dominio de la organización (UI + alineado a Postgres). */
@@ -18,9 +19,10 @@ export type OrgState = {
   tiposProyecto: TipoProyecto[];
   preciosManoObra: PrecioManoObra[];
   clientes: Cliente[];
-  rolesColaborador: RolColaborador[];
   colaboradores: Colaborador[];
   cotizaciones: Cotizacion[];
   proyectos: Proyecto[];
   entregables: Entregable[];
+  especialidades: Especialidad[];
+  trabajosEspecialidad: TrabajoEspecialidad[];
 };

@@ -164,7 +164,6 @@ export default function ProyectosPage() {
                           className="rounded border-zinc-300 text-emerald-600"
                         />
                         <span>{c.nombre}</span>
-                        {c.rol ? <span className="text-xs text-zinc-500">({c.rol})</span> : null}
                       </label>
                     </li>
                   ))}

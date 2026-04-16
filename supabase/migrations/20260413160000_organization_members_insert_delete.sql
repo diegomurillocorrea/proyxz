@@ -1,5 +1,8 @@
 -- CRUD miembros: alta y baja solo para administradores de la organización.
 
+drop policy if exists members_insert_admin on public.organization_members;
+drop policy if exists members_delete_admin on public.organization_members;
+
 create policy members_insert_admin on public.organization_members
   for insert
   with check (

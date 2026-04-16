@@ -6,14 +6,15 @@ import type {
   Cotizacion,
   CotizacionDocEstado,
   Entregable,
+  Especialidad,
   EstadoProyecto,
   Id,
   OrgSettings,
   PartidaCotizacion,
   PrecioManoObra,
   Proyecto,
-  RolColaborador,
   TipoProyecto,
+  TrabajoEspecialidad,
 } from "@/lib/types";
 
 type OrgRow = {
@@ -46,24 +47,26 @@ export async function loadOrgState(supabase: SupabaseClient): Promise<OrgState> 
     { data: tiposRows, error: e2 },
     { data: precRows, error: e3 },
     { data: cliRows, error: e4 },
-    { data: rolesColabRows, error: eRoles },
     { data: colRows, error: e5 },
     { data: cotRows, error: e6 },
     { data: proyRows, error: e7 },
     { data: entRows, error: e8 },
+    { data: espRows, error: e9 },
+    { data: trabRows, error: e10 },
   ] = await Promise.all([
     supabase.from("estados_proyecto").select("*").order("orden", { ascending: true }),
     supabase.from("tipos_proyecto").select("*").order("codigo", { ascending: true }),
     supabase.from("precios_mano_obra").select("*"),
     supabase.from("clientes").select("*").order("nombre", { ascending: true }),
-    supabase.from("roles_colaborador").select("*").order("orden", { ascending: true }),
     supabase.from("colaboradores").select("*").order("nombre", { ascending: true }),
     supabase.from("cotizaciones").select("*").order("fecha_emision", { ascending: false }),
     supabase.from("proyectos").select("*"),
     supabase.from("entregables").select("*"),
+    supabase.from("especialidades").select("*").order("nombre", { ascending: true }),
+    supabase.from("trabajos_especialidad").select("*").order("nombre", { ascending: true }),
   ]);
 
-  const errs = [e1, e2, e3, e4, eRoles, e5, e6, e7, e8].filter(Boolean);
+  const errs = [e1, e2, e3, e4, e5, e6, e7, e8, e9, e10].filter(Boolean);
   if (errs.length) throw errs[0];
 
   const cotizacionIds = (cotRows ?? []).map((c: { id: string }) => c.id);
@@ -153,17 +156,9 @@ export async function loadOrgState(supabase: SupabaseClient): Promise<OrgState> 
     activo: r.activo as boolean,
   }));
 
-  const rolesColaborador: RolColaborador[] = (rolesColabRows ?? []).map((r: Record<string, unknown>) => ({
-    id: r.id as string,
-    nombre: r.nombre as string,
-    orden: r.orden as number,
-    activo: r.activo as boolean,
-  }));
-
   const colaboradores: Colaborador[] = (colRows ?? []).map((r: Record<string, unknown>) => ({
     id: r.id as string,
     nombre: r.nombre as string,
-    rol: (r.rol as string | null) ?? undefined,
     telefono: (r.telefono as string | null) ?? undefined,
     email: (r.email as string | null) ?? undefined,
     notas: (r.notas as string | null) ?? undefined,
@@ -204,16 +199,34 @@ export async function loadOrgState(supabase: SupabaseClient): Promise<OrgState> 
     fechaEntregaReal: r.fecha_entrega_real ? String(r.fecha_entrega_real) : undefined,
   }));
 
+  const especialidades: Especialidad[] = (espRows ?? []).map((r: Record<string, unknown>) => ({
+    id: r.id as string,
+    codigo: r.codigo as string,
+    nombre: r.nombre as string,
+    descripcion: (r.descripcion as string | null) ?? undefined,
+    activo: r.activo as boolean,
+  }));
+
+  const trabajosEspecialidad: TrabajoEspecialidad[] = (trabRows ?? []).map((r: Record<string, unknown>) => ({
+    id: r.id as string,
+    especialidadId: r.especialidad_id as string,
+    codigo: (r.codigo as string | null) ?? undefined,
+    nombre: r.nombre as string,
+    descripcion: (r.descripcion as string | null) ?? undefined,
+    activo: r.activo as boolean,
+  }));
+
   return {
     settings,
     estadosProyecto,
     tiposProyecto,
     preciosManoObra,
     clientes,
-    rolesColaborador,
     colaboradores,
     cotizaciones,
     proyectos,
     entregables,
+    especialidades,
+    trabajosEspecialidad,
   };
 }

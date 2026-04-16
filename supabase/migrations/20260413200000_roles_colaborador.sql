@@ -1,6 +1,6 @@
 -- Maestro de roles sugeridos para colaboradores de agenda (spec §8.1).
 
-create table public.roles_colaborador (
+create table if not exists public.roles_colaborador (
   id uuid primary key default gen_random_uuid(),
   organization_id uuid not null references public.organizations (id) on delete cascade,
   nombre text not null,
@@ -8,10 +8,12 @@ create table public.roles_colaborador (
   activo boolean not null default true
 );
 
-create unique index roles_colaborador_org_nombre_lower_idx
+create unique index if not exists roles_colaborador_org_nombre_lower_idx
   on public.roles_colaborador (organization_id, lower(trim(nombre)));
 
 alter table public.roles_colaborador enable row level security;
+
+drop policy if exists roles_colaborador_all on public.roles_colaborador;
 
 create policy roles_colaborador_all on public.roles_colaborador for all
   using (organization_id in (select public.user_organization_ids ()))

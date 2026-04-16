@@ -6,10 +6,11 @@ import {
   seedCotizaciones,
   seedEntregables,
   seedEstadosProyecto,
+  seedEspecialidades,
   seedPrecios,
   seedProyectos,
-  seedRolesColaborador,
   seedTipos,
+  seedTrabajosEspecialidad,
 } from "./seed";
 
 function clone<T>(x: T): T {
@@ -23,9 +24,10 @@ export const mockOrgState: OrgState = {
   tiposProyecto: clone(seedTipos),
   preciosManoObra: clone(seedPrecios),
   clientes: clone(seedClientes),
-  rolesColaborador: clone(seedRolesColaborador),
   colaboradores: clone(seedColaboradores),
   cotizaciones: clone(seedCotizaciones),
   proyectos: clone(seedProyectos),
   entregables: clone(seedEntregables),
+  especialidades: clone(seedEspecialidades),
+  trabajosEspecialidad: clone(seedTrabajosEspecialidad),
 };

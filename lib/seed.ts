@@ -3,12 +3,13 @@ import type {
   Colaborador,
   Cotizacion,
   Entregable,
+  Especialidad,
   EstadoProyecto,
   OrgSettings,
   PrecioManoObra,
   Proyecto,
-  RolColaborador,
   TipoProyecto,
+  TrabajoEspecialidad,
 } from "./types";
 
 const ids = {
@@ -25,11 +26,19 @@ const ids = {
   ent1: "ent-1",
   pmo1: "pmo-1",
   pmo2: "pmo-2",
-  rc1: "rol-col-1",
-  rc2: "rol-col-2",
-  rc3: "rol-col-3",
-  rc4: "rol-col-4",
-  rc5: "rol-col-5",
+  espAlba: "esp-alba",
+  espMetal: "esp-metal",
+  espTab: "esp-tab",
+  espElec: "esp-elec",
+  espPlom: "esp-plom",
+  espPint: "esp-pint",
+  trRepello: "tr-repello",
+  trLoza: "tr-loza",
+  trMetal: "tr-metal",
+  trTab: "tr-tab",
+  trElec: "tr-elec",
+  trPlom: "tr-plom",
+  trPint: "tr-pint",
 } as const;
 
 export const defaultOrgSettings: OrgSettings = {
@@ -63,6 +72,103 @@ export const seedTipos: TipoProyecto[] = [
   },
 ];
 
+export const seedEspecialidades: Especialidad[] = [
+  {
+    id: ids.espAlba,
+    codigo: "ALBANILERIA",
+    nombre: "Albañilería",
+    descripcion: "Mampostería, repello, concreto",
+    activo: true,
+  },
+  {
+    id: ids.espMetal,
+    codigo: "ESTRUCTURA_METALICA",
+    nombre: "Estructura metálica",
+    descripcion: "Soldadura, montaje",
+    activo: true,
+  },
+  {
+    id: ids.espTab,
+    codigo: "ACABADOS_TABLAROCA",
+    nombre: "Tablaroca / drywall",
+    descripcion: "Plafones y muros ligeros",
+    activo: true,
+  },
+  {
+    id: ids.espElec,
+    codigo: "INSTALACIONES_ELECTRICAS",
+    nombre: "Electricidad",
+    descripcion: "Canalización y luminarias",
+    activo: true,
+  },
+  {
+    id: ids.espPlom,
+    codigo: "PLOMERIA",
+    nombre: "Plomería",
+    descripcion: "Agua, desagüe, sanitarios",
+    activo: true,
+  },
+  {
+    id: ids.espPint,
+    codigo: "PINTURA",
+    nombre: "Pintura",
+    descripcion: "Impermeabilización y acabados",
+    activo: true,
+  },
+];
+
+export const seedTrabajosEspecialidad: TrabajoEspecialidad[] = [
+  {
+    id: ids.trRepello,
+    especialidadId: ids.espAlba,
+    codigo: "REPELLO",
+    nombre: "Repello interior",
+    activo: true,
+  },
+  {
+    id: ids.trLoza,
+    especialidadId: ids.espAlba,
+    codigo: "VACIADO_LOZA",
+    nombre: "Vaciado de loza",
+    activo: true,
+  },
+  {
+    id: ids.trMetal,
+    especialidadId: ids.espMetal,
+    codigo: "MONTAJE_CUBIERTA",
+    nombre: "Montaje de cubierta metálica",
+    activo: true,
+  },
+  {
+    id: ids.trTab,
+    especialidadId: ids.espTab,
+    codigo: "MURO_TABLAROCA",
+    nombre: "Muro tablaroca",
+    activo: true,
+  },
+  {
+    id: ids.trElec,
+    especialidadId: ids.espElec,
+    codigo: "PUNTO_ELECTRICO",
+    nombre: "Punto eléctrico",
+    activo: true,
+  },
+  {
+    id: ids.trPlom,
+    especialidadId: ids.espPlom,
+    codigo: "INST_SANITARIO",
+    nombre: "Instalación de sanitario",
+    activo: true,
+  },
+  {
+    id: ids.trPint,
+    especialidadId: ids.espPint,
+    codigo: "PINTURA_INTERIOR",
+    nombre: "Pintura interior",
+    activo: true,
+  },
+];
+
 export const seedPrecios: PrecioManoObra[] = [
   {
     id: ids.pmo1,
@@ -92,19 +198,10 @@ export const seedClientes: Cliente[] = [
   },
 ];
 
-export const seedRolesColaborador: RolColaborador[] = [
-  { id: ids.rc1, nombre: "Maestro", orden: 1, activo: true },
-  { id: ids.rc2, nombre: "Ayudante", orden: 2, activo: true },
-  { id: ids.rc3, nombre: "Supervisor", orden: 3, activo: true },
-  { id: ids.rc4, nombre: "Subcontratista", orden: 4, activo: true },
-  { id: ids.rc5, nombre: "Otro", orden: 5, activo: true },
-];
-
 export const seedColaboradores: Colaborador[] = [
   {
     id: ids.col1,
     nombre: "Carlos Rivas",
-    rol: "Maestro tablaroca",
     telefono: "+503 7777-1111",
   },
 ];
